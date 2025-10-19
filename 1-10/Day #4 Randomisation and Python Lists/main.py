@@ -40,5 +40,4 @@ else:
         print('You won!')
     else:
         print('You lose')
-
-computer_choice = random.randint(0, 2)
+        
