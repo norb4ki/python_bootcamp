@@ -2,40 +2,50 @@ import random
 word_list = ['pen', 'pineapple', 'apple', ]
 
 guessed_letters = []
-chosen_word_list = random.choice(word_list).split()
-guessed_word_list = []
-for step in range (len(chosen_word_list)):
-  guessed_word_list.append('_')
+chosen_word = random.choice(word_list)
+guessed_word = ''
+for step in range (len(chosen_word)):
+  guessed_word += '-'
 
 
 def guess_letter():
   return input('Guess a letter: ').lower()
 
 def is_letter_valid(letter):
-  if len(not letter == 1):
-    print('You should type only one letter')
+  if len(letter) != 1:
+    print('You should type only one letter\n')
     return False
   elif letter.upper() == letter.lower():
-    print('Numbers and characters are prohibited')
+    print('Numbers and characters are prohibited\n')
     return False
   elif letter in guessed_letters:
-    print('You guessed this letter before')
+    print('You guessed this letter before\n')
     return False
   else:
     return True
   
 def is_letter_in_word(letter):
   if letter in chosen_word:
-    print('Right!')
+    print('Right!\n')
     update_word()
   else:
-    print('Wrong!')
+    print('Wrong!\n')
 
 def update_word():
-  print('To do')
+  global guessed_word
+  new_word = ''
+  for letter in chosen_word:
+    if letter in guessed_letters:
+      new_word += letter
+    else:
+      new_word += '-'
+  guessed_word = new_word
 
-while not chosen_word == word_to_print:
-  print('Word to guess: ',word_to_print)
+while not chosen_word == guessed_word:
+  print('Word to guess: ',guessed_word)
   letter = guess_letter()
-  is_letter_in_word(letter)
+
+  if is_letter_valid(letter):
+    guessed_letters.append(letter)
+    is_letter_in_word(letter)
   
