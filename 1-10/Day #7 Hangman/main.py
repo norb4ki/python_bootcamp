@@ -1,71 +1,15 @@
 import random
-word_list = ['pen', 'pineapple', 'apple', ]
-stages = [r'''
-  +---+
-  |   |
-  O   |
- /|\  |
- / \  |
-      |
-=========
-''', r'''
-  +---+
-  |   |
-  O   |
- /|\  |
- /    |
-      |
-=========
-''', r'''
-  +---+
-  |   |
-  O   |
- /|\  |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|   |
-      |
-      |
-=========''', '''
-  +---+
-  |   |
-  O   |
-  |   |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
-      |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-      |
-      |
-      |
-      |
-=========
-''']
+import hangman_words
+import hangman_art
 
 guessed_letters = []
-chosen_word = random.choice(word_list)
+chosen_word = random.choice(hangman_words.word_list)
 word_length = len(chosen_word)
 game_over = False
 lives_left = 6
 placeholder = ''
 for step in range (len(chosen_word)):
   placeholder += '-'
-
 
 def guess_letter():
   return input('Guess a letter: ').lower()
@@ -102,8 +46,11 @@ def update_word(letter):
       new_word += '-'
   placeholder = new_word
 
+# Game Start
+
+print(hangman_art.logo)
 while not game_over:
-  print(stages[lives_left])
+  print(hangman_art.stages[lives_left])
   print('Word to guess: ',placeholder)
   letter = guess_letter()
 
@@ -114,16 +61,16 @@ while not game_over:
       update_word(letter)
     else:
       lives_left -= 1
-      print(f'You have {lives_left} lives left\n')
+      print(f'****************************{lives_left}/6 LIVES LEFT****************************')
 
   if chosen_word == placeholder:
-    print('You won!\n' \
-    f'The word is: {chosen_word}')
+    print(f'The word is: {chosen_word}')
+    print('***********************YOU WIN**********************\n')
     game_over = True
   
   if lives_left <= 0:
-    print(stages[lives_left])
-    print('You lose :(\n' \
-    f'The word is: {chosen_word}')
+    print(hangman_art.stages[lives_left])
+    print(f'The word is: {chosen_word}')
+    print(f'***********************YOU LOSE**********************\n')
     game_over = True
     
