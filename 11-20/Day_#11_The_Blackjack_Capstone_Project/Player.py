@@ -17,7 +17,7 @@ class Player:
   
   def reset(self):
     self.hand = []
-    self.score = []
+    self.score = 0
   
   def calculate_hand(self):
     acc = 0

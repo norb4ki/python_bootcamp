@@ -62,7 +62,14 @@ class GameSession(object):
 
         # Start point
         while(keep_taking):
+          # Early win check
           score = self.player.calculate_hand()
+          if score == 21:
+              self.show_current_hands()
+              print('You win with a black jack!\n')
+              keep_taking = False
+              break
+          
           self.show_current_hands()
           choice = input("Type 'y' to get another card, type 'n' to pass: ")
           
