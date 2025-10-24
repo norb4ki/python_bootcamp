@@ -17,44 +17,65 @@ class GameSession(object):
     self.deck = self.prepare_deck()
     self.player.reset()
     self.dealer.reset()
+    self.deal_cards()
 
   def prepare_deck(self):
     deck = cards * 24
     shuffle(deck)
     return deck
   
+  def show_winner(self):
+    p = self.player.get_score()
+    d = self.dealer.get_score()
+
+    self.show_final_hands() 
+    if p == d: 
+      print("It's a draw!")
+    elif d > 21 or p > d:
+      print("You win!")
+    else:
+      print("You lose!")  
+  
   def show_current_hands(self):
     print(f"\nYour cards: {self.player.get_hand()}, current score: {self.player.get_score()}")
-    print(f"Computer's cards: {self.dealer.get_card()}\n")
+    print(f"Computer's cards: {self.dealer.get_hand()}")
 
   def deal_cards(self):
     self.player.deal_hand(self.deck)
     self.dealer.deal_hand(self.deck)
-    
+
+  def show_final_hands(self):
+    print(f"\nYour cards: {self.player.get_hand()}, your final score: {self.player.get_score()}")
+    print(f"Computer's cards: {self.dealer.get_hand()}, computer's final score: {self.dealer.get_score()}")
   
   def start(self):
+    print("\n" * 100)
     while(self.keep_playing):
       choice = input ("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
 
       if choice != 'y':
         self.keep_playing = False
-
       else:
-        print('\n' * 20)
+        print('\n' * 100)
         print(logo)
         keep_taking = True
 
+        # Start point
         while(keep_taking):
           score = self.player.calculate_hand()
           self.show_current_hands()
           choice = input("Type 'y' to get another card, type 'n' to pass: ")
-
+          
+          # Playes refuses to take another card
           if choice == 'n':
             keep_taking = False
+          
+          # Playes agrees to take another card
           else:
             self.player.take_card(self.deck)
             score = self.player.calculate_hand()
 
+            # Game end check
             if score > 21:
               self.show_current_hands()
               print('You went over. You lose :C\n')
@@ -63,4 +84,10 @@ class GameSession(object):
               self.show_current_hands()
               print('You win with a black jack!\n')
               keep_taking = False
+          
+          # Dealer's turn
+          self.dealer.turn(self.deck)
+          self.show_winner()
+          self.clear_game()
+
             
