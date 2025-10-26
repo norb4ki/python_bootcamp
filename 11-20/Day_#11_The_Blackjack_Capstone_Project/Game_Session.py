@@ -64,7 +64,6 @@ class GameSession(object):
 
         # Start point
         while(keep_taking):
-          # Early win check
           score = self.player.calculate_hand()
           self.show_current_hands()
           choice = input("Type 'y' to get another card, type 'n' to pass: ")
