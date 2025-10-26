@@ -11,6 +11,7 @@ class GameSession(object):
     self.dealer = Dealer()
     self.deck = self.prepare_deck()
     self.keep_playing = True
+    self.game_is_over = False
     self.deal_cards()
     
   def clear_game(self):
@@ -59,17 +60,12 @@ class GameSession(object):
         print('\n' * 100)
         print(logo)
         keep_taking = True
+        self.game_is_over = True
 
         # Start point
         while(keep_taking):
           # Early win check
           score = self.player.calculate_hand()
-          if score == 21:
-              self.show_current_hands()
-              print('You win with a black jack!\n')
-              keep_taking = False
-              break
-          
           self.show_current_hands()
           choice = input("Type 'y' to get another card, type 'n' to pass: ")
           
@@ -87,12 +83,10 @@ class GameSession(object):
               self.show_current_hands()
               print('You went over. You lose :C\n')
               keep_taking = False
-            elif score == 21:
-              self.show_current_hands()
-              print('You win with a black jack!\n')
-              keep_taking = False
+              self.game_is_over = True
           
-          # Dealer's turn
+        # Dealer's turn
+        if not self.game_is_over:
           self.dealer.turn(self.deck)
           self.show_winner()
           self.clear_game()
