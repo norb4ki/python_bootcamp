@@ -60,7 +60,7 @@ class GameSession(object):
         print('\n' * 100)
         print(logo)
         keep_taking = True
-        self.game_is_over = True
+        self.game_is_over = False
 
         # Start point
         while(keep_taking):
@@ -84,6 +84,7 @@ class GameSession(object):
               print('You went over. You lose :C\n')
               keep_taking = False
               self.game_is_over = True
+              self.clear_game()
           
         # Dealer's turn
         if not self.game_is_over:
