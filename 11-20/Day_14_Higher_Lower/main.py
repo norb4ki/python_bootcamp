@@ -2,7 +2,7 @@ from art import logo, vs
 from game_data import data
 import random
 
-def check_and_compare (acc1, acc2, user_choice):
+def compare_accounts (acc1, acc2, user_choice):
   """Takes two accounts to compare and the user choice (either 'a' or 'b').
   Checks which one has more followers. Returns True if user choice has more followers, False otherwise"""
 
@@ -38,7 +38,7 @@ def start():
 
     answer = get_answer()
 
-    is_guess_right = check_and_compare(acc1, acc2, answer)
+    is_guess_right = compare_accounts(acc1, acc2, answer)
     if is_guess_right:
       score += 1
       acc1 = acc2
