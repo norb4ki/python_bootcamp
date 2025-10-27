@@ -1,7 +1,7 @@
 from art import logo
 import random
 
-EASY_LEVEL_TURNS = 5
+EASY_LEVEL_TURNS = 10
 HARD_LEVEL_TURNS = 5
 
 def is_answer_correct(guess, answer):
@@ -36,14 +36,14 @@ answer = random.randint(1, 100)
 turns = get_difficulty()
 game_over = False
 
-while not game_over and turns > 0:
+while turns > 0:
   print(f"You have {turns} attempts to guess the number.")
   guess = int(input("Take a guess: "))
   turns -= 1
 
   if(is_answer_correct(guess, answer)):
-    game_over = True
+    break
   
   if turns <= 0 and not game_over:
     print('You are out of guesses. You lose!')
-    game_over = True
+    break
