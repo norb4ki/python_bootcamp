@@ -3,14 +3,14 @@ from game_data import data
 import random
 
 def check_and_compare (acc1, acc2, user_choice):
-  """Takes two accounts to compare and the one the user chose.
+  """Takes two accounts to compare and the user choice (either 'a' or 'b').
   Checks which one has more followers. Returns True if user choice has more followers, False otherwise"""
 
   if acc1["follower_count"] > acc2["follower_count"]:
-    return acc1["name"] == user_choice["name"]
+    return user_choice == 'a'
     
   elif acc2["follower_count"] > acc1["follower_count"]:
-    return acc2["name"] == user_choice["name"]
+    return user_choice == 'b'
 
     
 def show_current_pair (acc1, acc2):
@@ -34,16 +34,11 @@ def start():
   print(logo)
   while not game_is_over:
     acc2 = data.pop()
-    user_choice = {}
     show_current_pair(acc1, acc2)
 
     answer = get_answer()
-    if answer == "a":
-      user_choice = acc1
-    else:
-      user_choice = acc2    
 
-    is_guess_right = check_and_compare(acc1, acc2, user_choice)
+    is_guess_right = check_and_compare(acc1, acc2, answer)
     if is_guess_right:
       score += 1
       acc1 = acc2
