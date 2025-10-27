@@ -7,16 +7,11 @@ def check_and_compare (acc1, acc2, user_choice):
   Checks which one has more followers. Returns True if user choice has more followers, False otherwise"""
 
   if acc1["follower_count"] > acc2["follower_count"]:
-    if acc1["name"] == user_choice["name"]:
-      return True
-    else:
-      return False
+    return acc1["name"] == user_choice["name"]
     
   elif acc2["follower_count"] > acc1["follower_count"]:
-    if acc2["name"] == user_choice["name"]:
-      return True
-    else:
-      return False
+    return acc2["name"] == user_choice["name"]
+
     
 def show_current_pair (acc1, acc2):
   print(f"Compare A: {acc1["name"]}, a {acc1["description"]}, from {acc1["country"]}.")
