@@ -2,14 +2,14 @@ from art import logo, vs
 from game_data import data
 import random
 
-def compare_accounts (acc1, acc2, user_choice):
+def compare_accounts (acc_a, acc_b, user_choice):
   """Takes two accounts to compare and the user choice (either 'a' or 'b').
   Checks which one has more followers. Returns True if user choice has more followers, False otherwise"""
 
-  if acc1["follower_count"] > acc2["follower_count"]:
+  if acc_a["follower_count"] > acc_b["follower_count"]:
     return user_choice == 'a'
     
-  elif acc2["follower_count"] > acc1["follower_count"]:
+  elif acc_a["follower_count"] > acc_b["follower_count"]:
     return user_choice == 'b'
 
     
