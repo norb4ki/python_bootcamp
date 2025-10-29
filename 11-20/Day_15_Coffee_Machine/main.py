@@ -67,10 +67,10 @@ def print_report(resources):
 def get_payment():
   """Takes coin amount as user input, returns total cash value in $ as float number"""
   try:
-    quarters = int(validated_input("How many quarters? "))
-    dimes = int(validated_input("How many dimes? "))
-    nickles = int(validated_input("How many nickles? "))
-    pennies = int(validated_input("How many pennies? "))
+    quarters = int(validated_input("How many quarters? ") or 0)
+    dimes = int(validated_input("How many dimes? ") or 0)
+    nickles = int(validated_input("How many nickles? ") or 0)
+    pennies = int(validated_input("How many pennies? ") or 0)
   except TypeError:
     print("Try again with whole numbers")
 
@@ -104,7 +104,10 @@ def check_recources(resources, beverage):
   return True
 
 def make_beverage(resources, beverage):
-  print(resources, beverage)
+  ingridients = beverage["ingredients"]
+  ingridient_keys = ingridients.keys()
+  for key in ingridient_keys:
+    resources[key] -= ingridients[key]
 
 def start():
   beverage_name = get_beverage(MENU)
@@ -113,7 +116,9 @@ def start():
   beverage = MENU[beverage_name]
   money_recieved = get_payment()
   if check_recources(resources, beverage) and process_payment(money_recieved, beverage["cost"], resources):
+    print(resources)
     make_beverage(resources, beverage)
+    print(f"Here is your {beverage_name}, enjoy!")
 
   start()
   
