@@ -30,8 +30,6 @@ resources = {
     "coffee": 100,
 }
 
-
-# TODO-1 Ask user which beverage he wants
 def validated_input(prompt):
   global resources
   """Takes an user input. Shows report on user command"""
@@ -122,11 +120,4 @@ def start():
 
   start()
   
-  
 start()
-# TODO-2 Turn off the Coffee Machine
-# TODO-3 Print report
-# TODO-4 Check is there is enough recources
-# TODO-5 Process coins
-# TODO-6 Check transaction successful
-# TODO-7 Make coffee
