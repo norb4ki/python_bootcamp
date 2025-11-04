@@ -30,7 +30,7 @@ def teleport_to_next_column(position, turtle):
 
 def teleport_to_next_row(position, turtle):
   position["y"] += 50
-  position["x"] = position[start_x]
+  position["x"] = position["start_x"]
   turtle.teleport(position["x"], position["y"])
 
 
