@@ -24,9 +24,7 @@ while is_race_on:
   for racer in contestants:
     distance = random.randint(0, 10)
     racer.forward(distance)
-    position = racer.pos()
-    print(position)
-    if position[0] >= 230:
+    if racer.xcor() >= 230:
       is_race_on = False
       winner = racer.color()[0]
       break
