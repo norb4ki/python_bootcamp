@@ -9,9 +9,9 @@ directions = {
 
 class Snake():
   def __init__(self):
+    body_part = Turtle()
     self.heading = directions["right"]
     self.body = []
-    self.head_position = 
 
   def turn_right(self):
     # ignores backward turn attempt
