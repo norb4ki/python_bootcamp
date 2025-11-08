@@ -27,28 +27,30 @@ class Snake():
 
   def turn_right(self):
     # ignores backward turn attempt
-    if self.head.heading() == DIRECTIONS["left"] or not self.turn_applied:
-      return
-    self.head.setheading(DIRECTIONS["right"])
-    self.turn_applied = False
+    if self.head.heading() != DIRECTIONS["left"] and self.turn_applied:
+      self.head.setheading(DIRECTIONS["right"])
+      self.turn_applied = False
 
   def turn_left(self):
     # ignores backward turn attempt
-    if self.head.heading() == DIRECTIONS["right"] or not self.turn_applied:
-      return
-    self.head.setheading(DIRECTIONS["left"])
+    if self.head.heading() != DIRECTIONS["right"] and self.turn_applied:
+      self.head.setheading(DIRECTIONS["left"])
+      self.turn_applied = False
+
 
   def turn_up(self):
     # ignores backward turn attempt
-    if self.head.heading() == DIRECTIONS["down"] or not self.turn_applied:
-      return
-    self.head.setheading(DIRECTIONS["up"])    
+    if self.head.heading() != DIRECTIONS["down"] and self.turn_applied:
+      self.head.setheading(DIRECTIONS["up"])  
+      self.turn_applied = False
+
 
   def turn_down(self):
     # ignores backward turn attempt
-    if self.head.heading() == DIRECTIONS["up"]  or not self.turn_applied:
-      return
-    self.head.setheading(DIRECTIONS["down"])
+    if self.head.heading() != DIRECTIONS["up"]  and self.turn_applied:
+      self.head.setheading(DIRECTIONS["down"])
+      self.turn_applied = False
+
   
   def move(self):
     for body_part in range(len(self.body) - 1, 0, -1):
