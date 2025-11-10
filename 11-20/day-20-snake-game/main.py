@@ -1,6 +1,7 @@
 from turtle import Screen
 from Snake import Snake
 from Food import Food
+from Scoreboard import Scoreboard
 
 screen = Screen()
 screen.setup(width=600, height=600)
@@ -14,6 +15,8 @@ screen.onkey(snake.turn_right, 'Right')
 screen.onkey(snake.turn_left, 'Left')
 screen.listen()
 food = Food()
+score = Scoreboard()
+
 def game_loop():
   snake.move()
   screen.update()
@@ -24,6 +27,7 @@ def game_loop():
     print('eat it')
     food.refresh()
     snake.grow()
+    score.increase_score()
 
 game_loop()  # start the loop
 screen.mainloop()
