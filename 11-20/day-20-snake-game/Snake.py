@@ -18,10 +18,7 @@ class Snake():
   def create_snake(self):
     segments = []
     for position in STARTING_POSITIONS:
-      segment = Turtle('square')
-      segment.color('white')
-      segment.penup()
-      segment.goto(position)
+      segment = self.add_piece(position, 'white')
       segments.append(segment)
     return segments
 
@@ -51,6 +48,20 @@ class Snake():
       self.head.setheading(DIRECTIONS["down"])
       self.turn_applied = False
 
+  def add_piece(self, position, color):
+    segment = Turtle('square')
+    segment.color(color)
+    segment.penup()
+    segment.goto(position)
+
+    return segment
+
+  def grow(self):
+    tail_position_x = self.body[-1].xcor()
+    tail_position_y = self.body[-1].ycor()
+  
+    segment = self.add_piece((tail_position_x, tail_position_y), 'green')
+    self.body.append(segment)
   
   def move(self):
     for body_part in range(len(self.body) - 1, 0, -1):

@@ -23,6 +23,7 @@ def game_loop():
   if snake.head.distance(food) < 15:
     print('eat it')
     food.refresh()
+    snake.grow()
 
 game_loop()  # start the loop
 screen.mainloop()
