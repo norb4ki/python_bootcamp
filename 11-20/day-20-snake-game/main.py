@@ -1,6 +1,6 @@
-from turtle import Screen, Turtle
-import time
+from turtle import Screen
 from Snake import Snake
+from Food import Food
 
 screen = Screen()
 screen.setup(width=600, height=600)
@@ -13,11 +13,16 @@ screen.onkey(snake.turn_up, 'Up')
 screen.onkey(snake.turn_right, 'Right')
 screen.onkey(snake.turn_left, 'Left')
 screen.listen()
-
+food = Food()
 def game_loop():
   snake.move()
   screen.update()
   screen.ontimer(game_loop, 100)  # move every 100 ms (~10 FPS)
+
+  # Detect collision with food
+  if snake.head.distance(food) < 15:
+    print('eat it')
+    food.refresh()
 
 game_loop()  # start the loop
 screen.mainloop()
