@@ -2,7 +2,14 @@ from turtle import Screen
 from Snake import Snake
 from Food import Food
 from Scoreboard import Scoreboard
+import time
 
+BORDER_RIGHT = 280
+BORDER_LEFT = -280
+BORDER_UP = 280
+BORDER_DOWN = -280
+
+game_is_over = False
 screen = Screen()
 screen.setup(width=600, height=600)
 screen.bgcolor("black")
@@ -24,10 +31,18 @@ def game_loop():
 
   # Detect collision with food
   if snake.head.distance(food) < 15:
-    print('eat it')
     food.refresh()
     snake.grow()
     score.increase_score()
+
+  head_pos_x = snake.head.xcor()
+  head_pos_y = snake.head.ycor()
+
+  # Detect collision with the wall
+  if head_pos_x > BORDER_RIGHT or head_pos_x < BORDER_LEFT or head_pos_y > BORDER_UP or head_pos_y < BORDER_DOWN:
+    score.game_over()
+    return
+
 
 game_loop()  # start the loop
 screen.mainloop()
