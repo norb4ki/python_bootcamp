@@ -43,8 +43,8 @@ def game_loop():
     game_is_over = True
   
   # Detect collision with the tail
-  for index in range(1, snake.len):
-    if snake.head.distance(snake.body[index]) < 15:
+  for segment in snake.body[1:]:
+    if snake.head.distance(segment) < 15:
       score.game_over()
       game_is_over = True
   
