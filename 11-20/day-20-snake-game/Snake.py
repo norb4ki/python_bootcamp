@@ -11,6 +11,7 @@ STEP = 20
 
 class Snake():
   def __init__(self):
+    self.len = 0
     self.body = self.create_snake()
     self.head = self.body[0]
     self.turn_applied = True
@@ -53,7 +54,7 @@ class Snake():
     segment.color(color)
     segment.penup()
     segment.goto(position)
-
+    self.len += 1
     return segment
 
   def grow(self):
