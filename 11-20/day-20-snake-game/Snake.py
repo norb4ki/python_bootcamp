@@ -1,13 +1,5 @@
 from turtle import Turtle
-
-DIRECTIONS = {
-  "right": 0,
-  "up": 90,
-  "left": 180,
-  "down": 270 
-}
-STARTING_POSITIONS = [(0,0), (-20, 0), (-40, 0)]
-STEP = 20
+from utils import SNAKE_START_POSITIONS as STARTING_POSITIONS, DIRECTIONS, STEP, COLOR_SNAKE
 
 class Snake():
   def __init__(self):
@@ -18,7 +10,7 @@ class Snake():
   def create_snake(self):
     segments = []
     for position in STARTING_POSITIONS:
-      segment = self.add_piece(position, 'white')
+      segment = self.add_piece(position, COLOR_SNAKE)
       segments.append(segment)
     return segments
 

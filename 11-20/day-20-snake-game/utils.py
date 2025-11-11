@@ -1,0 +1,19 @@
+BORDER_RIGHT = 280
+BORDER_LEFT = -280
+BORDER_UP = 280
+BORDER_DOWN = -280
+
+SCREEN_WIDTH = 600
+SCREEN_HEIGHT = 600
+
+COLOR_BG = 'black'
+COLOR_SNAKE = 'white'
+SNAKE_START_POSITIONS = [(0,0), (-20, 0), (-40, 0)]
+STEP = 20
+
+DIRECTIONS = {
+  "right": 0,
+  "up": 90,
+  "left": 180,
+  "down": 270 
+}
