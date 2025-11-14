@@ -8,12 +8,13 @@ class Paddle(Turtle):
     self.color('white')
     self.shape('square')
     self.shapesize(1, 5)
+    self.speed('fastest')
     self.left(90)
 
   def move_up(self):
     if self.ycor() < 250:
-      self.forward(10)
+      self.forward(20)
   
   def move_down(self):
     if self.ycor() > -250:
-      self.backward(10)
+      self.backward(20)
