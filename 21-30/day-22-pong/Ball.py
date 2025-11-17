@@ -1,12 +1,15 @@
 from turtle import Turtle
+from utils import BALL_HEADINGS
+import random
 
 class Ball(Turtle):
   def __init__(self):
     super().__init__()
     self.shape('circle')
     self.color('white')
-    self.setheading(20)
+    self.setheading(random.choice(BALL_HEADINGS))
     self.speed('fastest')
+    
 
   def bounce_x(self):
     current_heading = self.heading()
@@ -24,6 +27,12 @@ class Ball(Turtle):
 
   def move(self):
     self.forward(10)
+
+  def reset(self):
+    self.setheading(random.choice(BALL_HEADINGS))
+    self.teleport(0, 0)
+
+  
 
       
 
