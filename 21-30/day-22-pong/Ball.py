@@ -8,6 +8,7 @@ class Ball(Turtle):
     self.shape('circle')
     self.color('white')
     self.setheading(random.choice(BALL_HEADINGS))
+    self.penup()
     self.speed('fastest')
     
 

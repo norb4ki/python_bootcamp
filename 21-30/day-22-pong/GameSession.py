@@ -14,26 +14,33 @@ class GameSession:
 
     self.ball = Ball()
     self.score = Score()
+    self.speed = 25
 
     self.screen.listen()
-    self.screen.onkey(key='Up', fun=self.r_paddle.move_up)
-    self.screen.onkey(key='Down', fun=self.r_paddle.move_down)
-
-    self.screen.onkey(key='w', fun=self.l_paddle.move_up)
-    self.screen.onkey(key='s', fun=self.l_paddle.move_down)
-    self.screen.onkey(key='space', fun=self.start)
+    self.screen.onkeypress(key='Up', fun=self.r_paddle.move_up)
+    self.screen.onkeypress(key='Down', fun=self.r_paddle.move_down)
+    self.screen.onkeypress(key='w', fun=self.l_paddle.move_up)
+    self.screen.onkeypress(key='s', fun=self.l_paddle.move_down)
+    self.screen.onkeypress(key='space', fun=self.start)
 
   def start(self):
     # remove messages and show actual score
+    if self.is_on:
+      self.score.hide_start_message()
+      self.is_on = False
+    
     self.ball.move()
     self.bounce_check()
 
     # if didn't score - continue
     if not self.did_ball_score():
-      self.screen.ontimer(self.start, 20)
+      self.screen.ontimer(self.start, self.speed)
     else:
       self.score_ball()
       self.ball.reset()
+      self.reset_speed()
+      self.score.show_start_message()
+      self.is_on = True
 
     # else show mid-round message and exit from function
 
@@ -42,12 +49,19 @@ class GameSession:
       return True
     else: return False
 
+  def increase_speed(self):
+    if self.speed > 1:
+      self.speed -= 1
+  
+  def reset_speed(self):
+    self.speed = 25
+
   def score_ball(self):
     if self.ball.xcor() > 400:
       self.score.l_score += 1
     else: 
       self.score.r_score += 1
-    self.score.update()
+    self.score.update_score()
 
   def bounce_check(self):
     ball_x = self.ball.xcor()
@@ -63,6 +77,8 @@ class GameSession:
       or self.paddle_bounce_check(self.r_paddle, ball_x, ball_y)
     ):
       self.ball.bounce_x()
+      self.increase_speed()
+
 
   def paddle_bounce_check(self, paddle, ball_x, ball_y):
     paddle_x = paddle.xcor()
