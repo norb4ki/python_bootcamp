@@ -10,6 +10,7 @@ class GameSession:
     self.screen.title('Pong')
     self.r_paddle = Paddle(350)
     self.l_paddle = Paddle(-350)
+
     self.ball = Ball()
 
     self.screen.listen()
@@ -18,12 +19,28 @@ class GameSession:
 
     self.screen.onkey(key='w', fun=self.l_paddle.move_up)
     self.screen.onkey(key='s', fun=self.l_paddle.move_down)
+    self.screen.onkey(key='space', fun=self.start)
 
   def start(self):
+    # remove messages and show actual score
     self.ball.move()
     self.bounce_check()
 
-    self.screen.ontimer(self.start, 20)
+    # if didn't score - continue
+    if not self.did_ball_score():
+      self.screen.ontimer(self.start, 20)
+    else:
+      self.ball.reset()
+
+    # else show mid-round message and exit from function
+
+  def did_ball_score(self):
+    if self.ball.xcor() > 400 or self.ball.xcor() < -400:
+      return True
+    else: return False
+
+  def score_ball(self):
+    pass
 
   def bounce_check(self):
     ball_x = self.ball.xcor()
@@ -38,7 +55,6 @@ class GameSession:
       self.paddle_bounce_check(self.l_paddle, ball_x, ball_y)
       or self.paddle_bounce_check(self.r_paddle, ball_x, ball_y)
     ):
-      
       self.ball.bounce_x()
 
   def paddle_bounce_check(self, paddle, ball_x, ball_y):
@@ -48,3 +64,4 @@ class GameSession:
       paddle_x - 10 <= ball_x <= paddle_x + 5
       and paddle_y - 50 <= ball_y <= paddle_y + 50
     )
+  
