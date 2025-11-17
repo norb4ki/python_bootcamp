@@ -1,6 +1,7 @@
 import turtle
 from Paddle import Paddle
 from Ball import Ball
+from Score import Score
 class GameSession:
   def __init__ (self):
     self.is_on = True
@@ -12,6 +13,7 @@ class GameSession:
     self.l_paddle = Paddle(-350)
 
     self.ball = Ball()
+    self.score = Score()
 
     self.screen.listen()
     self.screen.onkey(key='Up', fun=self.r_paddle.move_up)
@@ -30,6 +32,7 @@ class GameSession:
     if not self.did_ball_score():
       self.screen.ontimer(self.start, 20)
     else:
+      self.score_ball()
       self.ball.reset()
 
     # else show mid-round message and exit from function
@@ -40,7 +43,11 @@ class GameSession:
     else: return False
 
   def score_ball(self):
-    pass
+    if self.ball.xcor() > 400:
+      self.score.l_score += 1
+    else: 
+      self.score.r_score += 1
+    self.score.update()
 
   def bounce_check(self):
     ball_x = self.ball.xcor()
