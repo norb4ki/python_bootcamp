@@ -25,7 +25,7 @@ class Score:
     self.score_message.write(arg=f'{self.l_score}:{self.r_score}', align='center', font=('Arial', '32', 'bold'))
 
   def show_start_message(self):
-    self.start_message.write(arg='PRESS SPACE TO START A GAME\n\nPRESS "W" AND "S" TO CONTROL LEFT PADDLE\nPRESS ARROW_UP AND ARROW_DOWN TO CONTROL RIGHT PADDLE', align='center', font=('Arial', 16, 'normal'))
+    self.start_message.write(arg='PRESS SPACE TO START A GAME', align='center', font=('Arial', 16, 'normal'))
 
   def hide_start_message(self):
     self.start_message.clear()
