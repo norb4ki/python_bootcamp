@@ -5,9 +5,10 @@ class GameSession:
   def __init__(self):
     self.screen = Screen()
     self.screen.setup(width=600, height=600)
-    self.screen.listen()
 
     self.player = Player()
     self.player.reset_position()
 
     self.screen.onkeypress(fun=self.player.move, key='w')
+    self.screen.listen()
+    
