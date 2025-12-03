@@ -1,6 +1,6 @@
 from turtle import Screen
 from player import Player
-
+from car_manager import CarManager
 class GameSession:
   def __init__(self):
     self.screen = Screen()
@@ -8,7 +8,10 @@ class GameSession:
 
     self.player = Player()
     self.player.reset_position()
+    self.car_manager = CarManager()
 
     self.screen.onkeypress(fun=self.player.move, key='w')
     self.screen.listen()
-    
+    # self.screen.exitonclick()
+
+  
