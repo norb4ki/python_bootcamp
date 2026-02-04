@@ -10,23 +10,36 @@ SCREEN_BORDER = 330
 class CarManager:
     def __init__(self):
         self.cars = []
-        self.setup_cars()
+        self.setup_cars(20)
         self.move_cars()
 
-    def setup_cars(self):
-        for i in range(40):
+    def setup_cars(self, car_count):
+        for i in range(car_count):
             position = self.get_random_position()
             self.generate_car(position)
 
     def move_cars(self):
         for car in self.cars:
-            car.move(STARTING_MOVE_DISTANCE)
+            if car.xcor() < -SCREEN_BORDER:
+                car.hideturtle()
+                self.cars.remove(car)
+                del car
+            else:
+                car.move(STARTING_MOVE_DISTANCE)
     
+
     def generate_car(self, position=None):
         if position is None:
-            position = [300, random.randint(-250, 250)]
+            while True:
+                ry = random.randint(-250, 250)
+                ry -= ry % 20
+                position = [300, ry]
+                if self.is_position_free(position):
+                    break
         car = Car(position, random.choice(COLORS), SCREEN_BORDER)
         self.cars.append(car)
+
+
     
     def get_random_position(self):
         correct_position = False
@@ -46,4 +59,5 @@ class CarManager:
     def delete_all_cars(self):
         for car in self.cars:
             car.hideturtle()
+            del car
         self.cars.clear()

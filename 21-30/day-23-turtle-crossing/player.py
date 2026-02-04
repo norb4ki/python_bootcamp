@@ -9,10 +9,11 @@ class Player(Turtle):
         super().__init__(shape)
         self.left(90)
         self.penup()
+        self.reset_position()
+        
+    def reset_position(self):
         self.teleport(STARTING_POSITION[0], STARTING_POSITION[1])
 
-    def reset_position(self):
-        self.reset()
 
     def move(self):
         self.forward(MOVE_DISTANCE)
