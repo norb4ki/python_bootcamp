@@ -13,6 +13,13 @@ class Snake():
       segment = self.add_piece(position, COLOR_SNAKE)
       segments.append(segment)
     return segments
+  
+  def reset(self):
+    for segment in self.body:
+      segment.goto(1000, 1000)
+    self.body.clear()
+    self.body = self.create_snake()
+    self.head = self.body[0]
 
   def turn_right(self):
     # ignores backward turn attempt

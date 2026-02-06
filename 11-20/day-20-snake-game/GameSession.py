@@ -36,14 +36,23 @@ class GameSession:
 
     # Detect collision with the wall
     if head_pos_x > BORDER_RIGHT or head_pos_x < BORDER_LEFT or head_pos_y > BORDER_UP or head_pos_y < BORDER_DOWN:
-      self.score.game_over()
-      self.game_is_over = True
+      self.game_over()
     
     # Detect collision with the tail
     for segment in self.snake.body[1:]:
       if self.snake.head.distance(segment) < 15:
-        self.score.game_over()
-        self.game_is_over = True
+        self.game_over()
     
     if not self.game_is_over:
       self.screen.ontimer(self.start, 100)
+
+  def game_over(self):
+    self.score.game_over()
+    self.game_is_over = True
+    self.screen.onkey(self.reset, 'space')
+
+  def reset(self):
+    self.snake.reset()
+    self.score.reset()
+    self.game_is_over = False
+    self.start()
