@@ -63,10 +63,7 @@ class GameSession():
 
   def save_missed_states(self):
     states_list = self.data.state.to_list()
-    missed_states = []
-    for state in states_list:
-      if state not in self.guessed:
-        missed_states.append(state)
+    missed_states = [state for state in states_list if state not in self.guessed]
 
     pd.DataFrame(missed_states).to_csv('./data/states_to_learn.csv')
     
