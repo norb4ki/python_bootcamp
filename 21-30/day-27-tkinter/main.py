@@ -40,11 +40,11 @@ km_text = tk.Label(text="Km")
 km_text.grid(row=1, column=2)
 
 def calc(miles):
-  return int(miles) * 1.6
+  return float(miles) * 1.6
 
 def handle_button_click():
   data = mile_input.get()
-  km_am_text['text'] = calc(data)
+  km_am_text['text'] = round(calc(data), 2)
 
 #  + Button +
 calc_button = tk.Button(text="Calculate", command=handle_button_click)
