@@ -1,6 +1,7 @@
 from tkinter import END, EW, Button, Canvas, Entry, Label, PhotoImage, Tk, messagebox
 from random import choice, randint, shuffle
 import pyperclip
+import json
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 #Password Generator Project
 
@@ -31,10 +32,9 @@ def handle_add_button():
   data = get_form_data()
   resp = validate_data(data)
   if resp:
-    is_ok = messagebox.askokcancel(title=data["website"], message=f'These are your credentials: \nEmail: {data["username"]}\nPassword: {data["password"]}\nContinue saving?')
-    if is_ok: 
-      save_data(data["to_string"])
-      clear_form()
+    formated_data = format_data(data)
+    save_data(formated_data)
+    clear_form()
   else:
     messagebox.showerror(title='Error', message="You forgot to fill some fields")
 
@@ -44,25 +44,35 @@ def get_form_data():
   username = username_input.get()
   password = password_input.get()
   return {
-    "website": website, 
-    "username": username, 
+    "domen": website,
+    "email": username,
     "password": password,
-    "to_string": f'{website} | {username} | {password}'
   }
 
-def validate_data(data) -> bool:
-  if len(data["website"]) == 0:
+def validate_data(data: dict) -> bool:
+
+  if len(data['domen']) == 0:
     return False
-  if len(data["username"]) == 0:
+  if len(data['email']) == 0:
     return False
   if len(data["password"]) == 0:
     return False
   return True
 
+def format_data(data:dict) -> dict:
+  return {
+    data["domen"]:{
+      "email": data['email'],
+      "password": data['password']
+    }
+  }
 
-def save_data(data):
-  with open('./credentials.txt', mode='a') as f:
-    f.write(data)
+def save_data(new_data):
+  with open('./credentials.json', mode='r') as data_file:
+    data = json.load(data_file)
+    data.update(new_data)
+  with open('./credentials.json', mode='w') as data_file:
+    json.dump(data, data_file, indent=2)
 
 
 def clear_form():

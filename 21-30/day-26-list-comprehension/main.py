@@ -26,7 +26,14 @@ df = pd.read_csv('nato_phonetic_alphabet.csv')
 n_a = {row.letter:row.code for (index, row) in df.iterrows()}
 
 #TODO 2. Create a list of the phonetic code words from a word that the user inputs.
-word_to_encode = input("Please write a word to encode: ").upper()
-encoded_word_list = [n_a[letter] for letter in word_to_encode if letter in n_a.keys()]
+valid_input = False
+while not valid_input:
+    try:
+        word_to_encode = input("Please write a word to encode: ").upper()
+        encoded_word_list = [n_a[letter] for letter in word_to_encode]
+    except KeyError:
+        print("Sorry, only letters in the alphabet please")
+    else:
+        valid_input = True
 
 print(encoded_word_list)
