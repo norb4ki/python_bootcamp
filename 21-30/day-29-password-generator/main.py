@@ -68,9 +68,12 @@ def format_data(data:dict) -> dict:
   }
 
 def save_data(new_data):
-  with open('./credentials.json', mode='r') as data_file:
-    data = json.load(data_file)
-    data.update(new_data)
+  try:
+    with open('./credentials.json', mode='r') as data_file:
+      data = json.load(data_file)
+      data.update(new_data)
+  except FileNotFoundError:
+    data = new_data
   with open('./credentials.json', mode='w') as data_file:
     json.dump(data, data_file, indent=2)
 
@@ -78,6 +81,22 @@ def save_data(new_data):
 def clear_form():
   website_input.delete(0, END)
   password_input.delete(0, END)
+
+def handle_search():
+  key = website_input.get()
+  try:
+    with open('./credentials.json', mode='r') as data_file:
+      data = json.load(data_file)
+      print(data)
+  except FileNotFoundError:
+    messagebox.showerror(title='Vault not found', message="No Data File Found")
+  else:
+    try:
+      credentials = data[key]
+    except KeyError:
+      messagebox.showerror(title='Not Found', message='No details for this website exists')
+    else: 
+      messagebox.showinfo(title=key, message=f'Username: {credentials["email"]}\nPassword: {credentials['password']}')
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -93,9 +112,11 @@ canvas.grid(column=1, row=0, sticky=EW)
 # Website row
 website_label = Label(text='Website:')
 website_label.grid(row=1, column=0, sticky=EW)
-website_input = Entry(width=35)
+website_input = Entry(width=21)
 website_input.focus()
-website_input.grid(row=1, column=1, columnspan=2, sticky=EW)
+website_input.grid(row=1, column=1, sticky=EW)
+search_btn = Button(text='Search', command=handle_search)
+search_btn.grid(column=2, row=1, sticky=EW)
 
 # email row
 username_label = Label(text='Email/Username:')
